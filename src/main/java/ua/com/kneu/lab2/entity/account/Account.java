@@ -121,8 +121,8 @@ public class Account {
                 ", balance=" + balance +
                 ", creditLimit=" + paymentLimit +
                 ", currency='" + currency + '\'' +
-                ", cardId=" + card.getId() +
-                ", clientId=" + client.getId() +
+                ", cardId=" + (card == null ? "no card" : card.getId()) +
+                ", clientId=" + (client == null ? "no client" : client.getId()) +
                 '}';
     }
 }

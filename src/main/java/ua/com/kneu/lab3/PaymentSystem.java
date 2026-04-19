@@ -16,7 +16,6 @@ import java.util.Random;
 
 public class PaymentSystem {
 
-    private static final int BASE_PAYMENT_LIMIT = 3000;
     private static final Currency BASE_CURRENCY = Currency.UAH;
     private static final int NUMBERS_IN_IBAN = 27;
     private static final String CHARS = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -58,7 +57,7 @@ public class PaymentSystem {
         admin.activeAccount(account);
     }
 
-    public void registerAccountForClient(Client client) {
+    public void registerAccountForClient(Client client, BigDecimal paymentLimit) {
         String iban = generateUniqueIban();
         long id = accounts.isEmpty() ? 1 : accounts.getLast().getId() + 1;
 
@@ -66,7 +65,7 @@ public class PaymentSystem {
                 id,
                 iban,
                 BigDecimal.ZERO,
-                new BigDecimal(BASE_PAYMENT_LIMIT),
+                paymentLimit,
                 BASE_CURRENCY,
                 AccountState.ACTIVE,
                 client);
