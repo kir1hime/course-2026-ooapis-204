@@ -25,6 +25,7 @@ public class Main {
                 true,
                 20,
                 "+380000000000",
+
                 "Kyiv");
 
         Card card1 = new Card(
