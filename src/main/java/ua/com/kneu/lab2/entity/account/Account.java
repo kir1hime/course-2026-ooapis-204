@@ -35,6 +35,16 @@ public class Account {
         this.accountState = accountState;
     }
 
+    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency, AccountState accountState, Client client) {
+        this.id = id;
+        this.iban = iban;
+        this.balance = balance;
+        this.paymentLimit = paymentLimit;
+        this.currency = currency;
+        this.accountState = accountState;
+        this.client = client;
+    }
+
     public AccountState getAccountState() {
         return accountState;
     }
@@ -111,8 +121,8 @@ public class Account {
                 ", balance=" + balance +
                 ", creditLimit=" + paymentLimit +
                 ", currency='" + currency + '\'' +
-                ", cardId=" + card.getId() +
-                ", clientId=" + client.getId() +
+                ", cardId=" + (card == null ? "no card" : card.getId()) +
+                ", clientId=" + (client == null ? "no client" : client.getId()) +
                 '}';
     }
 }

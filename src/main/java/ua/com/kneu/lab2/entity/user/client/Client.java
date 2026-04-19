@@ -5,6 +5,7 @@ import ua.com.kneu.lab2.entity.account.AccountState;
 import ua.com.kneu.lab2.entity.user.User;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client extends User {
@@ -13,7 +14,7 @@ public class Client extends User {
     private String phone;
     private String address;
 
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
 
     public List<Account> getAccounts() {
@@ -91,6 +92,10 @@ public class Client extends User {
                 "} ";
     }
 
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
+
     public void makePayment(Account account, BigDecimal amountOfMoney) {
         if (isNotAccountCorrect(account)) {
             return;
@@ -102,7 +107,7 @@ public class Client extends User {
             System.out.println("There aren't enough money in your account");
             return;
         }
-        if (isAmountOfMoneyCorrect(amountOfMoney)) {
+        if (!isAmountOfMoneyCorrect(amountOfMoney)) {
             return;
         }
         if (amountOfMoney.compareTo(account.getPaymentLimit()) > 0) {

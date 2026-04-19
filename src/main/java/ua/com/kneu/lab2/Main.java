@@ -25,6 +25,7 @@ public class Main {
                 true,
                 20,
                 "+380000000000",
+
                 "Kyiv");
 
         Card card1 = new Card(
@@ -128,7 +129,7 @@ public class Main {
                 AdminType.MAIN_ADMIN);
 
 
-        PaymentSystem paymentSystem = new PaymentSystem();
+       /* PaymentSystem paymentSystem = new PaymentSystem();
         paymentSystem.setAccounts(new ArrayList<>(List.of(account1, account2, account3, account4)));
         paymentSystem.setClients(new ArrayList<>(List.of(client1, client2)));
         paymentSystem.setAdmins(new ArrayList<>(List.of(admin)));
@@ -163,6 +164,6 @@ public class Main {
 
         System.out.println("\n");
         admin.activeAccount(firstAccountOfClient1);
-        System.out.println("After successful account activation: " + firstAccountOfClient1.getIban() + " " + firstAccountOfClient1.getAccountState());
+        System.out.println("After successful account activation: " + firstAccountOfClient1.getIban() + " " + firstAccountOfClient1.getAccountState());*/
     }
 }
