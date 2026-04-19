@@ -24,12 +24,12 @@ public class PaymentSystem {
 
     private static final Random random = new Random();
 
-    // ініціалзація списків сутностей платіжної системи
+    // ініціалізація списків сутностей платіжної системи
     private final List<Account> accounts = new ArrayList<>();
     private final List<Client> clients = new ArrayList<>();
     private final List<Card> cards = new ArrayList<>();
 
-    // стоврення об'єкту адміна для виконання операції - розблокування
+    // створення об'єкта адміна для виконання операції - розблокування
     private final Admin admin = new Admin(
             1111L,
             "Petro",
