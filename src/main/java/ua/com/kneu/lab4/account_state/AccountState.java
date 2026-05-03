@@ -9,4 +9,5 @@ public interface AccountState {
     void makePayment(Account account, BigDecimal amountOfMoney) throws PaymentException;
 
     void topUp(Account account, BigDecimal amountOfMoney) throws PaymentException;
+
 }

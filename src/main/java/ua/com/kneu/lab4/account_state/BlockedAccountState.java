@@ -9,11 +9,16 @@ public class BlockedAccountState implements AccountState {
 
     @Override
     public void makePayment(Account account, BigDecimal amountOfMoney) throws PaymentException {
-        throw new PaymentException("Account: " + account.toString() +" is blocked");
+        throw new PaymentException("Account with id: " + account.getId() +" is blocked");
     }
 
     @Override
     public void topUp(Account account, BigDecimal amountOfMoney) throws PaymentException {
-        throw new PaymentException("Account: " + account.toString() +" is blocked");
+        throw new PaymentException("Account with id: " + account.getId() +" is blocked");
+    }
+
+    @Override
+    public String toString() {
+        return "BlockedAccountState";
     }
 }

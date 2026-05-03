@@ -29,4 +29,9 @@ public class ActiveAccountState implements AccountState {
         }
         account.setBalance(account.getBalance().add(amountOfMoney));
     }
+
+    @Override
+    public String toString() {
+        return "ActiveAccountState";
+    }
 }
