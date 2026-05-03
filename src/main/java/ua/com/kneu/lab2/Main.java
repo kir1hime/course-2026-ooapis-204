@@ -44,8 +44,7 @@ public class Main {
                 "UA213996220000026007233566001",
                 new BigDecimal(4000),
                 new BigDecimal(2500),
-                Currency.UAH,
-                AccountState.ACTIVE);
+                Currency.UAH);
 
         account1.setCard(card1);
         account1.setClient(client1);
@@ -55,8 +54,7 @@ public class Main {
                 "UA903052992990004149123456789",
                 new BigDecimal(8000),
                 new BigDecimal(100000),
-                Currency.UAH,
-                AccountState.ACTIVE);
+                Currency.UAH);
         account2.setCard(card2);
 
         account2.setClient(client1);
@@ -95,7 +93,6 @@ public class Main {
                 113L,
                 "UA573543470006762462054925026",
                 new BigDecimal(7000),
-                AccountState.ACTIVE,
                 new BigDecimal(1000),
                 Currency.USD,
                 card3,
@@ -105,7 +102,6 @@ public class Main {
                 114L,
                 "UA212227320014359034607026807",
                 new BigDecimal(800),
-                AccountState.ACTIVE,
                 new BigDecimal(20),
                 Currency.EUR,
                 card4,

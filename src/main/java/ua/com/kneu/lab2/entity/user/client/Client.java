@@ -2,6 +2,9 @@ package ua.com.kneu.lab2.entity.user.client;
 
 import ua.com.kneu.lab2.entity.account.Account;
 import ua.com.kneu.lab2.entity.user.User;
+import ua.com.kneu.lab4.account_state.BlockedAccountState;
+import ua.com.kneu.lab4.exceptions.AccountOwnershipException;
+import ua.com.kneu.lab4.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -95,70 +98,24 @@ public class Client extends User {
         accounts.add(account);
     }
 
-    public void makePayment(Account account, BigDecimal amountOfMoney) {
-        if (isNotAccountCorrect(account)) {
-            return;
-        }
-        if (isAccountBlocked(account)) {
-            return;
-        }
-        if (amountOfMoney.compareTo(account.getBalance()) > 0) {
-            System.out.println("There aren't enough money in your account");
-            return;
-        }
-        if (!isAmountOfMoneyCorrect(amountOfMoney)) {
-            return;
-        }
-        if (amountOfMoney.compareTo(account.getPaymentLimit()) > 0) {
-            System.out.println("The amount of money you want to pay is bigger than your limit");
-            return;
-        }
-        account.setBalance(account.getBalance().subtract(amountOfMoney));
+    public void makePayment(Account account, BigDecimal amountOfMoney) throws PaymentException, AccountOwnershipException {
+        checkAccount(account);
+        account.makePayment(amountOfMoney);
     }
 
-    public void blockAccount(Account account) {
-        if (isNotAccountCorrect(account)) {
-            return;
-        }
-
-        account.setAccountState(AccountState.BLOCKED);
+    public void blockAccount(Account account) throws AccountOwnershipException {
+        checkAccount(account);
+        account.setAccountState(new BlockedAccountState());
     }
 
-    public void topUpAccount(Account account, BigDecimal amountOfMoney) {
-        if (isNotAccountCorrect(account)) {
-            return;
-        }
-        if (isAccountBlocked(account)) {
-            return;
-        }
-        if (!isAmountOfMoneyCorrect(amountOfMoney)) {
-            return;
-        }
-        account.setBalance(account.getBalance().add(amountOfMoney));
+    public void topUpAccount(Account account, BigDecimal amountOfMoney) throws PaymentException, AccountOwnershipException {
+        checkAccount(account);
+        account.topUp(amountOfMoney);
     }
 
-
-    private boolean isNotAccountCorrect(Account account) {
+    private void checkAccount(Account account) throws AccountOwnershipException {
         if (!accounts.contains(account)) {
-            System.out.println("Incorrect account");
-            return true;
+            throw new AccountOwnershipException();
         }
-        return false;
-    }
-
-    private boolean isAccountBlocked(Account account) {
-        if (account.getAccountState() == AccountState.BLOCKED) {
-            System.out.println("Account is blocked");
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isAmountOfMoneyCorrect(BigDecimal amountOfMoney) {
-        if (amountOfMoney.compareTo(BigDecimal.ZERO) <= 0) {
-            System.out.println("Amount must be positive");
-            return false;
-        }
-        return true;
     }
 }

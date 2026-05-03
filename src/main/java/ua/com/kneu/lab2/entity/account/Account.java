@@ -2,8 +2,9 @@ package ua.com.kneu.lab2.entity.account;
 
 import ua.com.kneu.lab2.entity.card.Card;
 import ua.com.kneu.lab2.entity.user.client.Client;
-import ua.com.kneu.lab4.AccountState;
-import ua.com.kneu.lab4.ActiveAccountState;
+import ua.com.kneu.lab4.account_state.AccountState;
+import ua.com.kneu.lab4.account_state.ActiveAccountState;
+import ua.com.kneu.lab4.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 
@@ -15,9 +16,9 @@ public class Account {
     private Currency currency;
     private Card card;
     private Client client;
-    private AccountState accountState = new ActiveAccountState();
+    private AccountState accountState;
 
-    public Account(long id, String iban, BigDecimal balance, AccountState accountState, BigDecimal paymentLimit, Currency currency, Card card, Client client) {
+    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency, Card card, Client client) {
         this.id = id;
         this.iban = iban;
         this.balance = balance;
@@ -25,26 +26,26 @@ public class Account {
         this.currency = currency;
         this.card = card;
         this.client = client;
-        this.accountState = accountState;
+        accountState = new ActiveAccountState();
     }
 
-    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency, AccountState accountState) {
+    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency) {
         this.id = id;
         this.iban = iban;
         this.balance = balance;
         this.paymentLimit = paymentLimit;
         this.currency = currency;
-        this.accountState = accountState;
+        accountState = new ActiveAccountState();
     }
 
-    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency, AccountState accountState, Client client) {
+    public Account(long id, String iban, BigDecimal balance, BigDecimal paymentLimit, Currency currency, Client client) {
         this.id = id;
         this.iban = iban;
         this.balance = balance;
         this.paymentLimit = paymentLimit;
         this.currency = currency;
-        this.accountState = accountState;
         this.client = client;
+        accountState = new ActiveAccountState();
     }
 
     public AccountState getAccountState() {
@@ -115,11 +116,11 @@ public class Account {
         this.client = client;
     }
 
-    public void makePayment(BigDecimal amountOfMoney) {
+    public void makePayment(BigDecimal amountOfMoney) throws PaymentException {
         accountState.makePayment(this, amountOfMoney);
     }
 
-    public void topUp(BigDecimal amountOfMoney) {
+    public void topUp(BigDecimal amountOfMoney) throws PaymentException {
         accountState.topUp(this, amountOfMoney);
     }
 

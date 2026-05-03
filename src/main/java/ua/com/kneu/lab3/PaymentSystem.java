@@ -7,6 +7,8 @@ import ua.com.kneu.lab2.entity.card.CardType;
 import ua.com.kneu.lab2.entity.user.admin.Admin;
 import ua.com.kneu.lab2.entity.user.admin.AdminType;
 import ua.com.kneu.lab2.entity.user.client.Client;
+import ua.com.kneu.lab4.exceptions.AccountOwnershipException;
+import ua.com.kneu.lab4.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -41,8 +43,15 @@ public class PaymentSystem {
             printAccountErrorMessage(accountId);
             return;
         }
+        try {
+            account.getClient().makePayment(account, amountOfMoney);
+            System.out.println("Payment is successful");
+        } catch (PaymentException e) {
+            System.out.println("Unfortunately payment is failed, cause: " + e.getMessage());
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
 
-        account.getClient().makePayment(account, amountOfMoney);
     }
 
     public void activeAccount(long accountId) {
@@ -66,7 +75,6 @@ public class PaymentSystem {
                 BigDecimal.ZERO,
                 paymentLimit,
                 BASE_CURRENCY,
-                AccountState.ACTIVE,
                 client);
 
         accounts.add(newAccount);
@@ -85,8 +93,11 @@ public class PaymentSystem {
             printAccountErrorMessage(accountId);
             return;
         }
-
-        account.getClient().blockAccount(account);
+        try {
+            account.getClient().blockAccount(account);
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
     }
 
     public void topUpAccount(long accountId, BigDecimal amountOfMoney) {
@@ -96,9 +107,14 @@ public class PaymentSystem {
             printAccountErrorMessage(accountId);
             return;
         }
-
-        account.getClient().topUpAccount(account, amountOfMoney);
-
+        try {
+            account.getClient().topUpAccount(account, amountOfMoney);
+            System.out.println("Replenishment is successful");
+        } catch (PaymentException e) {
+            System.out.println("Unfortunately payment is failed, cause: " + e.getMessage());
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
     }
 
     public List<Card> getClientCards(Client client) {
@@ -121,19 +137,13 @@ public class PaymentSystem {
             printAccountErrorMessage(toAccountId);
             return;
         }
-
-        if (fromAccount.getAccountState() == AccountState.BLOCKED || toAccount.getAccountState() == AccountState.BLOCKED) {
-            return;
-        }
-
-        BigDecimal balanceBefore = fromAccount.getBalance();
-        fromAccount.getClient().makePayment(fromAccount, amountOfMoney);
-
-        if (fromAccount.getBalance().compareTo(balanceBefore) < 0) {
+        try {
+            fromAccount.getClient().makePayment(fromAccount, amountOfMoney);
             toAccount.getClient().topUpAccount(toAccount, amountOfMoney);
             System.out.println("Transaction successful");
-        } else {
+        } catch (PaymentException | AccountOwnershipException e) {
             System.out.println("Transaction failed");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -227,7 +237,8 @@ public class PaymentSystem {
         return cards.stream()
                 .anyMatch(card -> card.getHashedCvvCode().equals(hashedCvvCode));
     }
-    private void printAccountErrorMessage(long accountId){
-        System.out.println("Account with id " + accountId + " not found");
+
+    private void printAccountErrorMessage(long accountId) {
+        System.out.println("Account with id " + accountId + " isn't founded");
     }
 }
