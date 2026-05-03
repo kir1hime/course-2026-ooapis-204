@@ -1,10 +1,10 @@
-package ua.com.kneu.lab2.entity.user.client;
+package ua.com.kneu.entity.user.client;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.user.User;
-import ua.com.kneu.lab4.account_state.BlockedAccountState;
-import ua.com.kneu.lab4.exceptions.AccountOwnershipException;
-import ua.com.kneu.lab4.exceptions.PaymentException;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.user.User;
+import ua.com.kneu.entity.account.account_state.BlockedAccountState;
+import ua.com.kneu.exceptions.AccountOwnershipException;
+import ua.com.kneu.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

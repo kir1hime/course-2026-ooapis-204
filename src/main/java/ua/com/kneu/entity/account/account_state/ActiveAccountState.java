@@ -1,9 +1,9 @@
-package ua.com.kneu.lab4.account_state;
+package ua.com.kneu.entity.account.account_state;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab4.exceptions.PaymentException;
-import ua.com.kneu.lab4.payment_validator.MonetaryOperationsValidator;
-import ua.com.kneu.lab4.payment_validator.ValidationResult;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.exceptions.PaymentException;
+import ua.com.kneu.payment_validator.MonetaryOperationsValidator;
+import ua.com.kneu.payment_validator.ValidationResult;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package ua.com.kneu.lab4.exceptions;
+package ua.com.kneu.exceptions;
 
 public class PaymentException extends Exception {
     private final String message;

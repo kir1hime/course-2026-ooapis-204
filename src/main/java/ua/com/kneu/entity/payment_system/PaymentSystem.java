@@ -1,14 +1,14 @@
-package ua.com.kneu.lab3;
+package ua.com.kneu.entity.payment_system;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.Currency;
-import ua.com.kneu.lab2.entity.card.Card;
-import ua.com.kneu.lab2.entity.card.CardType;
-import ua.com.kneu.lab2.entity.user.admin.Admin;
-import ua.com.kneu.lab2.entity.user.admin.AdminType;
-import ua.com.kneu.lab2.entity.user.client.Client;
-import ua.com.kneu.lab4.exceptions.AccountOwnershipException;
-import ua.com.kneu.lab4.exceptions.PaymentException;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.account.Currency;
+import ua.com.kneu.entity.card.Card;
+import ua.com.kneu.entity.card.CardType;
+import ua.com.kneu.entity.user.admin.Admin;
+import ua.com.kneu.entity.user.admin.AdminType;
+import ua.com.kneu.entity.user.client.Client;
+import ua.com.kneu.exceptions.AccountOwnershipException;
+import ua.com.kneu.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

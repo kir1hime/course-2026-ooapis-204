@@ -1,7 +1,7 @@
-package ua.com.kneu.lab4.account_state;
+package ua.com.kneu.entity.account.account_state;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab4.exceptions.PaymentException;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 

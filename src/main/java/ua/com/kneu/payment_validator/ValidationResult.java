@@ -1,4 +1,4 @@
-package ua.com.kneu.lab4.payment_validator;
+package ua.com.kneu.payment_validator;
 
 public sealed class ValidationResult {
 

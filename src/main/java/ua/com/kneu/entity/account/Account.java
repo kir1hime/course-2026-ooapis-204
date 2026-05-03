@@ -1,10 +1,10 @@
-package ua.com.kneu.lab2.entity.account;
+package ua.com.kneu.entity.account;
 
-import ua.com.kneu.lab2.entity.card.Card;
-import ua.com.kneu.lab2.entity.user.client.Client;
-import ua.com.kneu.lab4.account_state.AccountState;
-import ua.com.kneu.lab4.account_state.ActiveAccountState;
-import ua.com.kneu.lab4.exceptions.PaymentException;
+import ua.com.kneu.entity.card.Card;
+import ua.com.kneu.entity.user.client.Client;
+import ua.com.kneu.entity.account.account_state.AccountState;
+import ua.com.kneu.entity.account.account_state.ActiveAccountState;
+import ua.com.kneu.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 

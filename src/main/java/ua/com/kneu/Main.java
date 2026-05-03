@@ -1,9 +1,9 @@
-package ua.com.kneu.lab4;
+package ua.com.kneu;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.card.CardType;
-import ua.com.kneu.lab2.entity.user.client.Client;
-import ua.com.kneu.lab3.PaymentSystem;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.card.CardType;
+import ua.com.kneu.entity.user.client.Client;
+import ua.com.kneu.entity.payment_system.PaymentSystem;
 
 import java.math.BigDecimal;
 

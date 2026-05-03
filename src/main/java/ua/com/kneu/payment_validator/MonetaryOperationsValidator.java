@@ -1,6 +1,6 @@
-package ua.com.kneu.lab4.payment_validator;
+package ua.com.kneu.payment_validator;
 
-import ua.com.kneu.lab2.entity.account.Account;
+import ua.com.kneu.entity.account.Account;
 
 import java.math.BigDecimal;
 
