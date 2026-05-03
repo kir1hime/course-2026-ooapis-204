@@ -1,7 +1,6 @@
 package ua.com.kneu.lab2.entity.user.client;
 
 import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.AccountState;
 import ua.com.kneu.lab2.entity.user.User;
 
 import java.math.BigDecimal;

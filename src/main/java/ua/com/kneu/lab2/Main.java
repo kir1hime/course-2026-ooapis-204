@@ -1,11 +1,9 @@
 package ua.com.kneu.lab2;
 
 import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.AccountState;
 import ua.com.kneu.lab2.entity.account.Currency;
 import ua.com.kneu.lab2.entity.card.Card;
 import ua.com.kneu.lab2.entity.card.CardType;
-import ua.com.kneu.lab2.entity.payment_system.PaymentSystem;
 import ua.com.kneu.lab2.entity.user.admin.Admin;
 import ua.com.kneu.lab2.entity.user.admin.AdminType;
 import ua.com.kneu.lab2.entity.user.client.Client;

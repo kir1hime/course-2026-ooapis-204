@@ -1,7 +1,6 @@
 package ua.com.kneu.lab3;
 
 import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.AccountState;
 import ua.com.kneu.lab2.entity.account.Currency;
 import ua.com.kneu.lab2.entity.card.Card;
 import ua.com.kneu.lab2.entity.card.CardType;

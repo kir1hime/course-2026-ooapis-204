@@ -2,6 +2,8 @@ package ua.com.kneu.lab2.entity.account;
 
 import ua.com.kneu.lab2.entity.card.Card;
 import ua.com.kneu.lab2.entity.user.client.Client;
+import ua.com.kneu.lab4.AccountState;
+import ua.com.kneu.lab4.ActiveAccountState;
 
 import java.math.BigDecimal;
 
@@ -11,9 +13,9 @@ public class Account {
     private BigDecimal balance;
     private BigDecimal paymentLimit;
     private Currency currency;
-    private AccountState accountState;
     private Card card;
     private Client client;
+    private AccountState accountState = new ActiveAccountState();
 
     public Account(long id, String iban, BigDecimal balance, AccountState accountState, BigDecimal paymentLimit, Currency currency, Card card, Client client) {
         this.id = id;
@@ -111,6 +113,14 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void makePayment(BigDecimal amountOfMoney) {
+        accountState.makePayment(this, amountOfMoney);
+    }
+
+    public void topUp(BigDecimal amountOfMoney) {
+        accountState.topUp(this, amountOfMoney);
     }
 
     @Override
