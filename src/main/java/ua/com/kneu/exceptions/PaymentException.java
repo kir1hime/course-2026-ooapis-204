@@ -1,5 +1,6 @@
 package ua.com.kneu.exceptions;
 
+// виняток невдалої платіжної операції
 public class PaymentException extends Exception {
     private final String message;
 
