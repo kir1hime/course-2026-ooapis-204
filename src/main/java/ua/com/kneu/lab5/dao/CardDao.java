@@ -1,15 +1,15 @@
-package ua.com.kneu.lab5.dao.card;
+package ua.com.kneu.lab5.dao;
 
 import org.hibernate.SessionFactory;
 import ua.com.kneu.lab4.entity.card.Card;
 
 import java.util.List;
 
-public class CardDaoImpl implements CardDao{
-    private final SessionFactory sessionFactory;
+public class CardDao extends BaseDao<Card> {
 
-    public CardDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+
+    public CardDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
     }
 
     @Override

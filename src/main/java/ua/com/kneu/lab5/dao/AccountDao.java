@@ -1,22 +1,23 @@
-package ua.com.kneu.lab5.dao.account;
+package ua.com.kneu.lab5.dao;
 
 import org.hibernate.SessionFactory;
 import ua.com.kneu.lab4.entity.account.Account;
 
+import javax.persistence.EntityTransaction;
 import java.util.List;
 
-public class AccountDaoImpl implements AccountDao{
+public class AccountDao extends BaseDao<Account> {
 
-    private final SessionFactory sessionFactory;
 
-    public AccountDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public AccountDao(SessionFactory sessionFactory) {
+        super(sessionFactory);
+
     }
-
 
     @Override
     public void save(Account obj) {
-
+        EntityTransaction l = entityManager.getTransaction();
+        entityManager.persist(obj);
     }
 
     @Override

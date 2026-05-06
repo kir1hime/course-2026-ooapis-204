@@ -1,15 +1,15 @@
-package ua.com.kneu.lab5.dao.admin;
+package ua.com.kneu.lab5.dao;
 
 import org.hibernate.SessionFactory;
 import ua.com.kneu.lab4.entity.user.admin.Admin;
 
 import java.util.List;
 
-public class AdminDaoImpl implements AdminDao{
-    private final SessionFactory sessionFactory;
+public class AdminDao extends BaseDao<Admin> {
 
-    public AdminDaoImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+
+    public AdminDao(SessionFactory sessionFactory) {
+       super(sessionFactory);
     }
 
     @Override
