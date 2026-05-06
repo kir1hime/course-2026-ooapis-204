@@ -1,4 +1,4 @@
-package ua.com.kneu.entity.payment_system;
+package ua.com.kneu.payment_system;
 
 import ua.com.kneu.entity.account.Account;
 import ua.com.kneu.entity.account.Currency;

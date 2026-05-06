@@ -3,7 +3,7 @@ package ua.com.kneu;
 import ua.com.kneu.entity.account.Account;
 import ua.com.kneu.entity.card.CardType;
 import ua.com.kneu.entity.user.client.Client;
-import ua.com.kneu.entity.payment_system.PaymentSystem;
+import ua.com.kneu.payment_system.PaymentSystem;
 
 import java.math.BigDecimal;
 
