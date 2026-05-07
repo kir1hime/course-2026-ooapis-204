@@ -1,16 +1,11 @@
 package ua.com.kneu.lab5.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,7 +29,7 @@ public class Accounts {
 
     @ManyToOne
     @JoinColumn(name = "currency_id")
-    private Currency currency;
+    private Currencies currency;
 
     @ManyToOne
     @JoinColumn(name = "client_id")

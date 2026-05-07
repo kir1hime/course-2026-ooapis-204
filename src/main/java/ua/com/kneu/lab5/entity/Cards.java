@@ -1,12 +1,12 @@
 package ua.com.kneu.lab5.entity;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class Cards {
 
     @ManyToOne
     @JoinColumn(name = "card_type_id")
-    private CardTypes cardTypes;
+    private CardTypes cardType;
 
     @ManyToMany
     @JoinTable(

@@ -22,7 +22,7 @@ public class ActiveAccountState implements AccountState {
                     throw new PaymentException(failure.getMessage());
 
             // змінна балансу відповідного рахунку у разі успішного результату
-            case ValidationResult.SuccessfulValidationResult _ ->
+            case ValidationResult.SuccessfulValidationResult success ->
                     account.setBalance(account.getBalance().subtract(amountOfMoney));
         }
     }
@@ -39,7 +39,7 @@ public class ActiveAccountState implements AccountState {
                     throw new PaymentException(failure.getMessage());
 
             // змінна балансу відповідного рахунку у разі успішного результату
-            case ValidationResult.SuccessfulValidationResult _ ->
+            case ValidationResult.SuccessfulValidationResult success ->
                     account.setBalance(account.getBalance().add(amountOfMoney));
         }
     }

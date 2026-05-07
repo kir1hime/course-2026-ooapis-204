@@ -1,18 +1,14 @@
 package ua.com.kneu.lab5.dao;
 
 import org.hibernate.SessionFactory;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+import ua.com.kneu.lab5.dao.utils.TransactionExecutor;
 import java.util.List;
 
 public abstract class BaseDao<T> {
-    protected final EntityManager entityManager;
-    protected final EntityTransaction transaction;
+    protected final TransactionExecutor transactionExecutor;
 
     public BaseDao(SessionFactory sessionFactory) {
-        entityManager = sessionFactory.createEntityManager();
-        transaction = entityManager.getTransaction();
+        transactionExecutor = new TransactionExecutor(sessionFactory);
     }
 
     public abstract void save(T obj);
@@ -27,5 +23,5 @@ public abstract class BaseDao<T> {
 
     public abstract T findById(Long id);
 
-    public abstract T findByName(String name);
+
 }
