@@ -1,4 +1,4 @@
-package ua.com.kneu.lab2.entity.user;
+package ua.com.kneu.entity.user;
 
 public class User {
     private long id;

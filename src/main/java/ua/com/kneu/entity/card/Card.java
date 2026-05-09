@@ -1,6 +1,6 @@
-package ua.com.kneu.lab2.entity.card;
+package ua.com.kneu.entity.card;
 
-import ua.com.kneu.lab2.entity.account.Account;
+import ua.com.kneu.entity.account.Account;
 
 public class Card {
     private long id;

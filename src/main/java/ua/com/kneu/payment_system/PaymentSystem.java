@@ -1,13 +1,14 @@
-package ua.com.kneu.lab3;
+package ua.com.kneu.payment_system;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.AccountState;
-import ua.com.kneu.lab2.entity.account.Currency;
-import ua.com.kneu.lab2.entity.card.Card;
-import ua.com.kneu.lab2.entity.card.CardType;
-import ua.com.kneu.lab2.entity.user.admin.Admin;
-import ua.com.kneu.lab2.entity.user.admin.AdminType;
-import ua.com.kneu.lab2.entity.user.client.Client;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.account.Currency;
+import ua.com.kneu.entity.card.Card;
+import ua.com.kneu.entity.card.CardType;
+import ua.com.kneu.entity.user.admin.Admin;
+import ua.com.kneu.entity.user.admin.AdminType;
+import ua.com.kneu.entity.user.client.Client;
+import ua.com.kneu.exceptions.AccountOwnershipException;
+import ua.com.kneu.exceptions.PaymentException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,7 +50,15 @@ public class PaymentSystem {
             return;
         }
         // реалізація платежу
-        account.getClient().makePayment(account, amountOfMoney);
+        try {
+            account.getClient().makePayment(account, amountOfMoney);
+            System.out.println("Payment is successful");
+        } catch (PaymentException e) {
+            System.out.println("Unfortunately payment is failed, cause: " + e.getMessage());
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
+
     }
 
     // метод для активації рахунку
@@ -78,7 +87,6 @@ public class PaymentSystem {
                 BigDecimal.ZERO,
                 paymentLimit,
                 BASE_CURRENCY,
-                AccountState.ACTIVE,
                 client);
         // додавання нового рахунку в список рахунків
         accounts.add(newAccount);
@@ -104,7 +112,11 @@ public class PaymentSystem {
         }
 
         // блокування рахунку
-        account.getClient().blockAccount(account);
+        try {
+            account.getClient().blockAccount(account);
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
     }
 
     // метод для поповнення рахунку
@@ -116,9 +128,16 @@ public class PaymentSystem {
             printAccountErrorMessage(accountId);
             return;
         }
-        // поповнення рахунку
-        account.getClient().topUpAccount(account, amountOfMoney);
 
+        // поповнення рахунку
+        try {
+            account.getClient().topUpAccount(account, amountOfMoney);
+            System.out.println("Replenishment is successful");
+        } catch (PaymentException e) {
+            System.out.println("Unfortunately payment is failed, cause: " + e.getMessage());
+        } catch (AccountOwnershipException e) {
+            System.out.println("Ownership error: " + e.getMessage());
+        }
     }
 
     // метод для отримання всіх платіжних карток певного клієнта
@@ -148,26 +167,16 @@ public class PaymentSystem {
             printAccountErrorMessage(toAccountId);
             return;
         }
-        // перевірка на те, чи є рахунок заблокованим
-        if (fromAccount.getAccountState() == AccountState.BLOCKED) {
-            return;
-        }
-        // перевірка на те, чи є рахунок заблокованим
-        if (toAccount.getAccountState() == AccountState.BLOCKED) {
-            return;
-        }
 
-        // отримання балансу рахунку, з якого відбувається переказ
-        BigDecimal balanceBefore = fromAccount.getBalance();
-        // створення платежу
-        fromAccount.getClient().makePayment(fromAccount, amountOfMoney);
-
-        // перевірка на те, чи були зняті кошти з рахунку відправника
-        if (fromAccount.getBalance().compareTo(balanceBefore) < 0) {
+        try {
+            // реалізація платежу з fromAccount
+            fromAccount.getClient().makePayment(fromAccount, amountOfMoney);
+            // поповнення на toAccount
             toAccount.getClient().topUpAccount(toAccount, amountOfMoney);
             System.out.println("Transaction successful");
-        } else {
+        } catch (PaymentException | AccountOwnershipException e) {
             System.out.println("Transaction failed");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -280,6 +289,6 @@ public class PaymentSystem {
 
     // виведення повідомлення про відсутність рахунку з вказаним ідентифікатором
     private void printAccountErrorMessage(long accountId) {
-        System.out.println("Account with id " + accountId + " not found");
+        System.out.println("Account with id " + accountId + " isn't founded");
     }
 }

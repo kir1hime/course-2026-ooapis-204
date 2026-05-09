@@ -1,8 +1,9 @@
-package ua.com.kneu.lab3;
+package ua.com.kneu;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.card.CardType;
-import ua.com.kneu.lab2.entity.user.client.Client;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.card.CardType;
+import ua.com.kneu.entity.user.client.Client;
+import ua.com.kneu.payment_system.PaymentSystem;
 
 import java.math.BigDecimal;
 
@@ -59,18 +60,31 @@ public class Main {
         paymentSystem.topUpAccount(client1AccountId, new BigDecimal(25000));
         paymentSystem.topUpAccount(client2AccountId, new BigDecimal(20000));
 
-        System.out.println("Accounts after replenishment: \n");
+        System.out.println("Payment with amount of money bigger than account limit");
+        paymentSystem.makePayment(client1AccountId, new BigDecimal(25000));
         System.out.println("Account1: " + client1Account + "\n");
-        System.out.println("Account2: " + client2Account + "\n");
 
-        paymentSystem.makePayment(client1AccountId, new BigDecimal(2896));
-        System.out.println("Account1 after payment: " + client1Account + "\n");
+        System.out.println("Payment with amount of money bigger than balance");
+        paymentSystem.makePayment(client1AccountId, new BigDecimal(30000));
+        System.out.println("Account1: " + client1Account + "\n");
+
+        System.out.println("Unreal replenishment");
+        paymentSystem.topUpAccount(client1AccountId, new BigDecimal(-1));
+        System.out.println("Account1: " + client1Account + "\n");
+
+        System.out.println("Block account with account id: " + client1AccountId);
+        paymentSystem.blockAccount(client1AccountId);
+        System.out.println(client1Account.getAccountState());
+
+        System.out.println("Payment via blocked account");
+        paymentSystem.makePayment(client1AccountId, new BigDecimal(25000));
+        System.out.println();
 
         paymentSystem.makeTransaction(client1AccountId, client2AccountId, new BigDecimal(2500));
 
-        System.out.println("Accounts after transaction: \n");
-        System.out.println("Account1: " + client1Account + "\n");
-        System.out.println("Account2: " + client2Account + "\n");
+        System.out.println("Accounts after transaction:");
+        System.out.println("Account1: " + client1Account);
+        System.out.println("Account2: " + client2Account);
     }
 
 }

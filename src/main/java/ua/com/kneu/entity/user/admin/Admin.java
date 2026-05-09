@@ -1,8 +1,8 @@
-package ua.com.kneu.lab2.entity.user.admin;
+package ua.com.kneu.entity.user.admin;
 
-import ua.com.kneu.lab2.entity.account.Account;
-import ua.com.kneu.lab2.entity.account.AccountState;
-import ua.com.kneu.lab2.entity.user.User;
+import ua.com.kneu.entity.account.Account;
+import ua.com.kneu.entity.user.User;
+import ua.com.kneu.entity.account.account_state.ActiveAccountState;
 
 public class Admin extends User {
     private String hashedPassword;
@@ -44,6 +44,6 @@ public class Admin extends User {
     }
 
     public void activeAccount(Account account) {
-        account.setAccountState(AccountState.ACTIVE);
+        account.setAccountState(new ActiveAccountState());
     }
 }
