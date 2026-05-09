@@ -5,14 +5,14 @@
 
     <persistence-unit name="org.hibernate.tutorial.jpa">
 
-        <class>ua.com.kneu.lab5.entity.Accounts</class>
-        <class>ua.com.kneu.lab5.entity.Admins</class>
-        <class>ua.com.kneu.lab5.entity.AdminTypes</class>
-        <class>ua.com.kneu.lab5.entity.Cards</class>
-        <class>ua.com.kneu.lab5.entity.CardTypes</class>
-        <class>ua.com.kneu.lab5.entity.Clients</class>
-        <class>ua.com.kneu.lab5.entity.Currencies</class>
-        <class>ua.com.kneu.lab5.entity.Users</class>
+        <class>ua.com.kneu.entity.Accounts</class>
+        <class>ua.com.kneu.entity.Admins</class>
+        <class>ua.com.kneu.entity.AdminTypes</class>
+        <class>ua.com.kneu.entity.Cards</class>
+        <class>ua.com.kneu.entity.CardTypes</class>
+        <class>ua.com.kneu.entity.Clients</class>
+        <class>ua.com.kneu.entity.Currencies</class>
+        <class>ua.com.kneu.entity.Users</class>
 
         <properties>
             <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>

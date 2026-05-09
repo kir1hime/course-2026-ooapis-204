@@ -1,9 +1,9 @@
 package ua.com.kenu;
 
 import org.junit.jupiter.api.*;
-import ua.com.kneu.lab5.config.Factory;
-import ua.com.kneu.lab5.dao.*;
-import ua.com.kneu.lab5.entity.*;
+import ua.com.kneu.config.Factory;
+import ua.com.kneu.dao.*;
+import ua.com.kneu.entity.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
