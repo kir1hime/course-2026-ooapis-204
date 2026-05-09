@@ -17,7 +17,7 @@ public class AccountDao extends BaseDao<Accounts> {
     @Override
 
     public void save(Accounts obj) {
-        /*transactionExecutor.execute(entityManager ->
+       /* transactionExecutor.execute(entityManager ->
                 entityManager.createNativeQuery("INSERT INTO `accounts` (`iban`, `balance`, `payment_limit`, `currency_id`, `client_id`) VALUES (?,?,?,?,?)")
                         .setParameter(1, obj.getIban())
                         .setParameter(2, obj.getBalance())
@@ -28,19 +28,8 @@ public class AccountDao extends BaseDao<Accounts> {
         );*/
 
         transactionExecutor.execute(entityManager ->
-                entityManager.createQuery(
-                                "INSERT INTO Accounts (iban, balance, paymentLimit, currency, client) " +
-                                        "SELECT :iban, :balance, :payment_limit, :currency, :client")
-                        .setParameter("iban", obj.getIban())
-                        .setParameter("balance", obj.getBalance())
-                        .setParameter("payment_limit", obj.getPaymentLimit())
-                        .setParameter("currency", obj.getCurrency())
-                        .setParameter("client", obj.getClient())
-                        .executeUpdate()
-        );
-       /* transactionExecutor.execute(entityManager ->
                 entityManager.persist(obj)
-        );*/
+        );
     }
 
     @Override
@@ -73,15 +62,25 @@ public class AccountDao extends BaseDao<Accounts> {
 
     @Override
     public void delete(Accounts obj) {
-       /* transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `accounts` WHERE id =?")
-                        .setParameter(1, obj.getId())
-                        .executeUpdate());*/
+       /* transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE account_id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
 
-        transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM Accounts as a WHERE a.id = :id")
-                        .setParameter("id", obj.getId())
-                        .executeUpdate());
+            entityManager.createNativeQuery("DELETE FROM `accounts` WHERE id =?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+        });*/
+
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE account_id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+
+            entityManager.createQuery("DELETE FROM Accounts as a WHERE a.id = :id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+        });
 
       /*  transactionExecutor.execute(entityManager ->
                 entityManager.remove(obj));*/
@@ -89,11 +88,15 @@ public class AccountDao extends BaseDao<Accounts> {
 
     @Override
     public void deleteAll() {
-       /* transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `accounts`").executeUpdate());*/
+       /* transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `accounts`").executeUpdate();
+        });*/
 
-        transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM Accounts as a").executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createQuery("DELETE FROM Accounts as a").executeUpdate();
+        });
 
     }
 

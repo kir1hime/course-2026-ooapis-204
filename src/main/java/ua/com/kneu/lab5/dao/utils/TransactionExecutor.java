@@ -21,7 +21,9 @@ public class TransactionExecutor {
             entityTransaction.commit();
         } catch (Exception e) {
             entityTransaction.rollback();
+            System.out.println(e);
             throw new RuntimeException("Error during transaction executing");
+
         }
     }
 

@@ -14,27 +14,18 @@ public class CardDao extends BaseDao<Cards> {
 
     @Override
     public void save(Cards obj) {
-        transactionExecutor.execute(entityManager ->
+      /*  transactionExecutor.execute(entityManager ->
                 entityManager.createNativeQuery("INSERT INTO `cards` (`hashed_card_number`, `expiry_date`, `card_type_id`) VALUES (?,?,?)")
                         .setParameter(1, obj.getHashedCardNumber())
                         .setParameter(2, obj.getExpiryDate())
                         .setParameter(3, obj.getCardType().getId())
                         .executeUpdate()
         );
+*/
 
-        /*transactionExecutor.execute(entityManager ->
-                entityManager.createQuery(
-                                "INSERT INTO Cards (hashedCardNumber, expiryDate, cardType) " +
-                                        "SELECT :hashed_card_number, :expiry_date, :card_type")
-                        .setParameter("hashed_card_number", obj.getHashedCardNumber())
-                        .setParameter("expiry_date", obj.getExpiryDate())
-                        .setParameter("card_type", obj.getCardType())
-                        .executeUpdate()
-        );*/
-
-        /*transactionExecutor.execute(entityManager ->
+        transactionExecutor.execute(entityManager ->
                 entityManager.persist(obj)
-        );*/
+        );
     }
 
     @Override
@@ -47,7 +38,7 @@ public class CardDao extends BaseDao<Cards> {
                         .setParameter(4, obj.getId())
                         .executeUpdate());
 
-       /* transactionExecutor.execute(entityManager ->
+      /*  transactionExecutor.execute(entityManager ->
                 entityManager.createQuery("UPDATE Cards as c SET " +
                                 "c.hashedCardNumber =:hashed_card_number, c.expiryDate =:expiry_date, " +
                                 "c.cardType =:card_type WHERE c.id =:id")
@@ -63,15 +54,25 @@ public class CardDao extends BaseDao<Cards> {
 
     @Override
     public void delete(Cards obj) {
-        transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `cards` WHERE id = ?")
-                        .setParameter(1, obj.getId())
-                        .executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE card_id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
 
-       /* transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM Cards as c WHERE c.id =:id")
-                        .setParameter("id", obj.getId())
-                        .executeUpdate());*/
+            entityManager.createNativeQuery("DELETE FROM `cards` WHERE id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+        });
+
+       /* transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE card_id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+            entityManager.createQuery("DELETE FROM Cards as c WHERE c.id =:id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+
+        });*/
 
         /*transactionExecutor.execute(entityManager ->
                 entityManager.remove(obj));*/
@@ -79,11 +80,15 @@ public class CardDao extends BaseDao<Cards> {
 
     @Override
     public void deleteAll() {
-        transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `cards`").executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `cards`").executeUpdate();
+        });
 
-        /*transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM Cards as c").executeUpdate());*/
+       /* transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createQuery("DELETE FROM Cards as c").executeUpdate();
+        });*/
     }
 
     @Override

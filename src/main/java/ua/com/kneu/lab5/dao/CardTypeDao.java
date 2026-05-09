@@ -15,23 +15,16 @@ public class CardTypeDao extends BaseDao<CardTypes> {
 
     @Override
     public void save(CardTypes obj) {
-        transactionExecutor.execute(entityManager ->
+        /*transactionExecutor.execute(entityManager ->
                 entityManager.createNativeQuery("INSERT INTO `card_types` (`type`) VALUES (?)")
                         .setParameter(1, obj.getType())
                         .executeUpdate()
-        );
-
-       /* transactionExecutor.execute(entityManager ->
-                entityManager.createQuery(
-                                "INSERT INTO CardTypes (type) " +
-                                        "SELECT :type")
-                        .setParameter("type", obj.getType())
-                        .executeUpdate()
         );*/
 
-        /*transactionExecutor.execute(entityManager ->
+
+        transactionExecutor.execute(entityManager ->
                 entityManager.persist(obj)
-        );*/
+        );
     }
 
     @Override
@@ -55,15 +48,32 @@ public class CardTypeDao extends BaseDao<CardTypes> {
 
     @Override
     public void delete(CardTypes obj) {
-        transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `card_types` WHERE id = ?")
-                        .setParameter(1, obj.getId())
-                        .executeUpdate());
-/*
-        transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM CardTypes as c WHERE c.id =:id")
-                        .setParameter("id", obj.getId())
-                        .executeUpdate());*/
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE card_id IN (SELECT id FROM `cards` WHERE card_type_id = ?)")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+
+            entityManager.createNativeQuery("DELETE FROM `cards` WHERE card_type_id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+
+            entityManager.createNativeQuery("DELETE FROM `card_types`  WHERE id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+        });
+        /*transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts` WHERE card_id IN (SELECT id FROM `cards` WHERE card_type_id = ?)")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+
+            entityManager.createQuery("DELETE FROM Cards c WHERE c.id = :id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+
+            entityManager.createQuery("DELETE FROM CardTypes as c WHERE c.id =:id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+        });*/
 
         /*transactionExecutor.execute(entityManager ->
                 entityManager.remove(obj));*/
@@ -71,11 +81,17 @@ public class CardTypeDao extends BaseDao<CardTypes> {
 
     @Override
     public void deleteAll() {
-        transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `card_types`").executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `cards`").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `card_types`").executeUpdate();
+        });
 
-       /* transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM CardTypes as c").executeUpdate());*/
+      /*  transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `cards_accounts`").executeUpdate();
+            entityManager.createQuery("DELETE FROM Cards as c").executeUpdate();
+            entityManager.createQuery("DELETE FROM CardTypes as c").executeUpdate();
+        });*/
     }
 
     @Override

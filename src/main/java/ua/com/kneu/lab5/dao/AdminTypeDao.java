@@ -14,23 +14,15 @@ public class AdminTypeDao extends BaseDao<AdminTypes> {
 
     @Override
     public void save(AdminTypes obj) {
-        /*transactionExecutor.execute(entityManager ->
+       /* transactionExecutor.execute(entityManager ->
                 entityManager.createNativeQuery("INSERT INTO `admin_types` (`type`) VALUES (?)")
                         .setParameter(1, obj.getType())
                         .executeUpdate()
         );*/
 
         transactionExecutor.execute(entityManager ->
-                entityManager.createQuery(
-                                "INSERT INTO AdminTypes (type) " +
-                                        "SELECT :type")
-                        .setParameter("type", obj.getType())
-                        .executeUpdate()
-        );
-
-        /*transactionExecutor.execute(entityManager ->
                 entityManager.persist(obj)
-        );*/
+        );
     }
 
     @Override
@@ -54,15 +46,24 @@ public class AdminTypeDao extends BaseDao<AdminTypes> {
 
     @Override
     public void delete(AdminTypes obj) {
-        /*transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `admin_types` WHERE id = ?")
-                        .setParameter(1, obj.getId())
-                        .executeUpdate());*/
+      /*  transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `admins` WHERE id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `admin_types` WHERE id = ?")
+                    .setParameter(1, obj.getId())
+                    .executeUpdate();
+        });*/
 
-        transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM AdminTypes as a WHERE a.id =:id")
-                        .setParameter("id", obj.getId())
-                        .executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createQuery("DELETE FROM Admins a  WHERE a.id = :id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+
+            entityManager.createQuery("DELETE FROM AdminTypes a WHERE a.id = :id")
+                    .setParameter("id", obj.getId())
+                    .executeUpdate();
+        });
 
         /*transactionExecutor.execute(entityManager ->
                 entityManager.remove(obj));*/
@@ -70,11 +71,15 @@ public class AdminTypeDao extends BaseDao<AdminTypes> {
 
     @Override
     public void deleteAll() {
-        /*transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("DELETE FROM `admin_types`").executeUpdate());*/
+       /* transactionExecutor.execute(entityManager -> {
+            entityManager.createNativeQuery("DELETE FROM `admins`").executeUpdate();
+            entityManager.createNativeQuery("DELETE FROM `admin_types`").executeUpdate();
+        });*/
 
-        transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("DELETE FROM AdminTypes as a").executeUpdate());
+        transactionExecutor.execute(entityManager -> {
+            entityManager.createQuery("DELETE FROM Admins as a").executeUpdate();
+            entityManager.createQuery("DELETE FROM AdminTypes as a").executeUpdate();
+        });
     }
 
     @Override

@@ -16,16 +16,15 @@ public class AdminDao extends BaseDao<Admins> {
     @Override
     public void save(Admins obj) {
        /* transactionExecutor.execute(entityManager ->
-                entityManager.createNativeQuery("INSERT INTO `admins` (user_id, admin_type_id) VALUES (?,?)").setParameter(1, obj.getUser().getId()).setParameter(2, obj.getAdminType().getId()).executeUpdate());*/
+                entityManager.createNativeQuery("INSERT INTO `admins` (user_id, admin_type_id) VALUES (?,?)")
+                        .setParameter(1, obj.getUser().getId())
+                        .setParameter(2, obj.getAdminType().getId())
+                        .executeUpdate());*/
+
+
 
         transactionExecutor.execute(entityManager ->
-                entityManager.createQuery("INSERT INTO Admins (user, adminType) SELECT :user, :admin_type")
-                        .setParameter("user", obj.getUser())
-                        .setParameter("admin_type", obj.getAdminType())
-                        .executeUpdate());
-
-        /*transactionExecutor.execute(entityManager ->
-                entityManager.persist(obj));*/
+                entityManager.persist(obj));
     }
 
     @Override
