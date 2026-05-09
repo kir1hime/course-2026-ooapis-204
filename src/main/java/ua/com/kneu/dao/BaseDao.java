@@ -23,5 +23,4 @@ public abstract class BaseDao<T> {
 
     public abstract T findById(Long id);
 
-
 }

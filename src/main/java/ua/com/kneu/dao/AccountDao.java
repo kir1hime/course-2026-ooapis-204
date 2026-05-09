@@ -15,7 +15,6 @@ public class AccountDao extends BaseDao<Accounts> {
     }
 
     @Override
-
     public void save(Accounts obj) {
        /* transactionExecutor.execute(entityManager ->
                 entityManager.createNativeQuery("INSERT INTO `accounts` (`iban`, `balance`, `payment_limit`, `currency_id`, `client_id`) VALUES (?,?,?,?,?)")
