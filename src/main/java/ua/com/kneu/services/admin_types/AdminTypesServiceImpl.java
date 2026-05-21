@@ -1,39 +1,53 @@
 package ua.com.kneu.services.admin_types;
-
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ua.com.kneu.dtos.admin_types.AdminTypesDTO;
+import ua.com.kneu.dtos.admin_types.AdminTypesMapper;
 import ua.com.kneu.entities.AdminTypes;
+import ua.com.kneu.repositories.AdminTypesRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class AdminTypesServiceImpl implements AdminTypesService{
-    @Override
-    public void save(AdminTypes obj) {
+@AllArgsConstructor
+public class AdminTypesServiceImpl implements AdminTypesService {
 
+    private final AdminTypesRepository adminTypesRepository;
+
+    @Override
+    public AdminTypesDTO save(AdminTypesDTO dto) {
+        AdminTypes entity = AdminTypesMapper.toEntity(dto);
+        AdminTypes saved = adminTypesRepository.save(entity);
+        return AdminTypesMapper.toDTO(saved);
     }
 
     @Override
-    public void update(AdminTypes obj) {
-
+    public AdminTypesDTO update(AdminTypesDTO dto) {
+        AdminTypes entity = AdminTypesMapper.toEntity(dto);
+        AdminTypes updated = adminTypesRepository.save(entity);
+        return AdminTypesMapper.toDTO(updated);
     }
 
     @Override
-    public void delete(AdminTypes obj) {
-
+    public void deleteById(Long id) {
+        adminTypesRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-
+        adminTypesRepository.deleteAll();
     }
 
     @Override
-    public List<AdminTypes> findAll() {
-        return List.of();
+    public List<AdminTypesDTO> findAll() {
+        return adminTypesRepository.findAll()
+                .stream().map(AdminTypesMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    public AdminTypes findById(Long id) {
-        return null;
+    public AdminTypesDTO findById(Long id) {
+        return adminTypesRepository.findById(id)
+                .map(AdminTypesMapper::toDTO).orElse(null);
     }
 }

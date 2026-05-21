@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ua.com.kneu.entities.Admins;
 
 @Repository
-public interface AdminsRepositories extends JpaRepository<Admins, Long> {
+public interface AdminsRepository extends JpaRepository<Admins, Long> {
 }

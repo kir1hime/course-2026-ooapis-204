@@ -6,4 +6,5 @@ import ua.com.kneu.entities.Clients;
 
 @Repository
 public interface ClientsRepository extends JpaRepository<Clients, Long> {
+    Long id(Long id);
 }

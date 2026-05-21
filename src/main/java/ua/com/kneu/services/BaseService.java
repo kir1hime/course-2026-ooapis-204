@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface BaseService<T> {
 
-    public abstract void save(T obj);
+    T save(T obj);
 
-    public abstract void update(T obj);
+    T update(T obj);
 
-    public abstract void delete(T obj);
+    void deleteById(Long id);
 
-    public abstract void deleteAll();
+    void deleteAll();
 
-    public abstract List<T> findAll();
+    List<T> findAll();
 
-    public abstract T findById(Long id);
+    T findById(Long id);
 }

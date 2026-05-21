@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 import ua.com.kneu.entities.Accounts;
 
 @Repository
-public interface AccountsRepositories extends JpaRepository<Accounts, Long> {}
+public interface AccountsRepository extends JpaRepository<Accounts, Long> {
+
+}
