@@ -1,4 +1,4 @@
-package ua.com.kneu.entity;
+package ua.com.kneu.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,12 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
-@Table(name = "card_types")
-public class CardTypes {
+@Table(name = "admin_types")
+public class AdminTypes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,4 +1,4 @@
-package ua.com.kneu.entity;
+package ua.com.kneu.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

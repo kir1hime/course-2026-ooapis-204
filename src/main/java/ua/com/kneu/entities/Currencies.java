@@ -1,4 +1,4 @@
-package ua.com.kneu.entity;
+package ua.com.kneu.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,24 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
-@Table(name = "admins")
-public class Admins {
+@Table(name = "currencies")
+public class Currencies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
-
-    @ManyToOne
-    @JoinColumn(name = "admin_type_id")
-    private AdminTypes adminType;
+    private String currency;
 }
